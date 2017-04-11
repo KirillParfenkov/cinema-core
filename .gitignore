@@ -2,3 +2,4 @@
 .idea
 /cinema-core.iml
 /.gradle/
+/build/

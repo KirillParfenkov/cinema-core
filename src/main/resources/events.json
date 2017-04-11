@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Captain America: Civil War",
+    "price": 5,
+    "rating": "MID"
+  },
+  {
+    "name": "Rogue One: A Star Wars Story",
+    "price": 5,
+    "rating": "HIGH"
+  },
+  {
+    "name": "Finding Dory",
+    "price": 5,
+    "rating": "LOW"
+  },
+  {
+    "name": "Zootopia",
+    "price": 6,
+    "rating": "LOW"
+  },
+  {
+    "name": "The Jungle Book",
+    "price": 6,
+    "rating": "LOW"
+  },
+  {
+    "name": "The Secret Life of Pets",
+    "price": 6,
+    "rating": "LOW"
+  },
+  {
+    "name": "Batman v Superman: Dawn of Justice",
+    "price": 6,
+    "rating": "LOW"
+  },
+  {
+    "name": "Fantastic Beasts and Where to Find Them",
+    "price": 6,
+    "rating": "LOW"
+  }
+]

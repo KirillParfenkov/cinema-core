@@ -16,6 +16,8 @@ public class User {
     private Date birthday;
     private List<String> events;
 
+    public User() {}
+
     public User(String id, User user, String lastName, String firstName, Date birthday) {
         this(user.getEmail(), user.getLastName(), user.getFirstName(), user.getBirthday());
         this.id = id;

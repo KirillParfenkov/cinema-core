@@ -10,6 +10,9 @@ public class Event {
     private long price;
     private Rating rating;
 
+    public Event() {
+    }
+
     public Event(String id, Event event) {
         this(id, event.getName(), event.getPrice(), event.getRating());
     }
