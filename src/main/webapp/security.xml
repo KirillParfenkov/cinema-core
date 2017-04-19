@@ -22,7 +22,8 @@
                 <user name="admin" password="admin" authorities="ROLE_REGISTERED_USER, ROLE_BOOKING_MANAGER" />
             </user-service>
         </authentication-provider>
-        <authentication-provider ref="daoAuthenticationProvider"></authentication-provider>
+        <authentication-provider ref="daoAuthenticationProvider">
+        </authentication-provider>
     </authentication-manager>
 
 </beans:beans>

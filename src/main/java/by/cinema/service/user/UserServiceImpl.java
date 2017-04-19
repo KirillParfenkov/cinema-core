@@ -6,6 +6,7 @@ import by.cinema.dao.booking.TicketDao;
 import by.cinema.dao.user.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,12 +21,17 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private TicketDao ticketDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public static final String DEFAULT_ROLE = "ROLE_REGISTERED_USER";
 
 
     public User register(User user) {
         user.setRoles(DEFAULT_ROLE);
+        String encodedPass = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPass);
         return userDao.add(user);
     }
 
