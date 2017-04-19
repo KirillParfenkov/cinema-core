@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface AuditoriumBookingDao {
 
+    AuditoriumBooking get(String id);
     List<AuditoriumBooking> getAll();
     List<AuditoriumBooking> getByEvent(String eventId);
     List<AuditoriumBooking> getByAuditorium(String auditoriumId);

@@ -28,6 +28,10 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-context-support', version: '4.3.7.RELEASE'
     compile group: 'org.springframework', name: 'spring-tx', version: '4.3.7.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.7.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.2.2.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.2.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.2.RELEASE'
+
 
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'

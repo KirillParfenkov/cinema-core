@@ -24,4 +24,5 @@ public interface EventService {
     List<Event> getNextEvents(Date to);
     void assignAuditorium(Event event, Auditorium auditorium, Date date);
     List<AuditoriumBooking> getAuditoriumBookings(Event event);
+    AuditoriumBooking getAuditoriumBookingById(String id);
 }

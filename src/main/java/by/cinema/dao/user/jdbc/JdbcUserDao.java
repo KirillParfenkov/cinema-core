@@ -25,11 +25,15 @@ public class JdbcUserDao implements UserDao{
 
     private static final class UserMapper implements RowMapper<User> {
         public User mapRow(ResultSet resultSet, int i) throws SQLException {
-            return new User(resultSet.getString("id"),
-                            resultSet.getString("email"),
-                            resultSet.getString("lastName"),
-                            resultSet.getString("firstName"),
-                            resultSet.getDate("birthday"));
+            User user = new User();
+            user.setId(resultSet.getString("id"));
+            user.setEmail(resultSet.getString("email"));
+            user.setLastName(resultSet.getString("lastName"));
+            user.setFirstName(resultSet.getString("firstName"));
+            user.setBirthday(resultSet.getDate("birthday"));
+            user.setPassword(resultSet.getString("password"));
+            user.setRoles(resultSet.getString("roles"));
+            return user;
         }
     }
 
@@ -42,7 +46,7 @@ public class JdbcUserDao implements UserDao{
 
         user.setId(UUID.randomUUID().toString());
 
-        String sql = "INSERT INTO users VALUES (:id, :email, :lastName, :firstName, :birthday)";
+        String sql = "INSERT INTO users VALUES (:id, :email, :lastName, :firstName, :password, :roles, :birthday)";
         SqlParameterSource namedParameters = new BeanPropertySqlParameterSource(user);
         this.jdbcTemplate.update(sql,namedParameters);
 

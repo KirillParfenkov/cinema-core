@@ -4,6 +4,8 @@ import by.cinema.bean.Auditorium;
 import by.cinema.bean.AuditoriumBooking;
 import by.cinema.bean.Event;
 import by.cinema.bean.Rating;
+import by.cinema.dao.auditorium.AuditoriumBookingDao;
+import by.cinema.dao.auditorium.AuditoriumDao;
 import by.cinema.dao.event.EventDao;
 import by.cinema.service.auditorium.AuditoriumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,8 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private EventDao eventDao;
     @Autowired
-    private AuditoriumService auditoriumService;
+    private AuditoriumBookingDao auditoriumBookingDao;
+
 
 
     public Event create(String name, long price, Rating rating) {
@@ -64,6 +67,11 @@ public class EventServiceImpl implements EventService{
     }
 
     public List<AuditoriumBooking> getAuditoriumBookings(Event event) {
-        return null;
+        return auditoriumBookingDao.getByEvent(event.getId());
+    }
+
+    @Override
+    public AuditoriumBooking getAuditoriumBookingById(String id) {
+        return auditoriumBookingDao.get(id);
     }
 }

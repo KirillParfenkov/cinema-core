@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Kiryl_Parfiankou on 11/16/2015.
@@ -43,7 +44,9 @@ public class JdbcAuditoriumBookingDao implements AuditoriumBookingDao{
     private final class AuditoriumBookingMapper implements RowMapper<AuditoriumBooking> {
         public AuditoriumBooking mapRow(ResultSet resultSet, int i) throws SQLException {
 
-            return new AuditoriumBooking(resultSet.getDate("date"),
+            return new AuditoriumBooking(
+                    resultSet.getString("id"),
+                    resultSet.getDate("date"),
                     auditoriumDao.get(resultSet.getString("auditorium_id")),
                     eventDao.get(resultSet.getString("event_id")));
         }
@@ -76,11 +79,12 @@ public class JdbcAuditoriumBookingDao implements AuditoriumBookingDao{
 
     public void assignAuditorium(Event event, Auditorium auditorium, Date date) {
 
-        String sql = "INSERT INTO auditorium_bookings VALUES (:date, :auditoriumId, :eventId)";
+        String sql = "INSERT INTO auditorium_bookings VALUES (:id, :date, :auditoriumId, :eventId)";
         SqlParameterSource parameters = new MapSqlParameterSource()
+                                                .addValue("id", UUID.randomUUID().toString())
                                                 .addValue("date", date)
                                                 .addValue("auditoriumId", auditorium.getId())
-                .addValue("eventId", event.getId());
+                                                .addValue("eventId", event.getId());
         jdbcTemplate.update(sql,parameters);
     }
 
@@ -94,5 +98,13 @@ public class JdbcAuditoriumBookingDao implements AuditoriumBookingDao{
         String sql = "DELETE FROM auditorium_bookings WHERE auditorium_id = :auditoriumId";
         SqlParameterSource parameters = new MapSqlParameterSource("auditoriumId", auditoriumId);
         jdbcTemplate.update(sql,parameters);
+    }
+
+    @Override
+    public AuditoriumBooking get(String id) {
+        String sql = "SELECT * FROM auditorium_bookings WHERE id = :id";
+        SqlParameterSource parameters = new MapSqlParameterSource("id", id);
+        List<AuditoriumBooking> result = jdbcTemplate.query(sql, parameters, new AuditoriumBookingMapper());
+        return result != null ? result.get(0): null;
     }
 }

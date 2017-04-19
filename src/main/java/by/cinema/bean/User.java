@@ -13,6 +13,8 @@ public class User {
     private String email;
     private String lastName;
     private String firstName;
+    private String password;
+    private String roles;
     private Date birthday;
     private List<String> events;
 
@@ -99,5 +101,21 @@ public class User {
 
     public void setEvents(List<String> events) {
         this.events = events;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

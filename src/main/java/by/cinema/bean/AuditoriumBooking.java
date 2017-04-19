@@ -9,11 +9,19 @@ import java.util.Date;
  */
 public class AuditoriumBooking {
 
+    private String id;
     private Date date;
     private Auditorium auditorium;
     private Event event;
 
     public AuditoriumBooking() {
+    }
+
+    public AuditoriumBooking(String id, Date date, Auditorium auditorium, Event event) {
+        this.id = id;
+        this.date = date;
+        this.auditorium = auditorium;
+        this.event = event;
     }
 
     public AuditoriumBooking(Date date, Auditorium auditorium, Event event) {
@@ -44,5 +52,13 @@ public class AuditoriumBooking {
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -11,7 +11,7 @@
             <#list events as event>
                 <tr>
                     <td> ${event.id} </td>
-                    <td> ${event.name} </td>
+                    <td> <a href="events?name=${event.name}">${event.name}</a> </td>
                     <td> ${event.price} </td>
                     <td> ${event.rating} </td>
                 </tr>

@@ -84,4 +84,9 @@ public class AuditoriumBookingDaoImpl implements AuditoriumBookingDao {
     public void removeByAuditorium(String auditoriumId) {
         audAuditoriumBookingMap.remove(auditoriumId);
     }
+
+    @Override
+    public AuditoriumBooking get(String id) {
+        return null;
+    }
 }

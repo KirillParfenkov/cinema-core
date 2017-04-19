@@ -1,6 +1,7 @@
 package by.cinema.controller;
 
 
+import by.cinema.bean.AuditoriumBooking;
 import by.cinema.bean.Event;
 import by.cinema.service.event.EventService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +35,11 @@ public class EventController {
     @RequestMapping(params={"name"})
     public ModelAndView getByName(String name) {
         Event event = eventService.getByName(name);
-        return new ModelAndView(EVENT_DETAILS_TEMPLATE).addObject("event", event);
+        List<AuditoriumBooking> auditoriumBookingList = eventService.getAuditoriumBookings(event);
+
+        return new ModelAndView(EVENT_DETAILS_TEMPLATE)
+                .addObject("event", event)
+                .addObject("audBooks", auditoriumBookingList);
     }
 
     @RequestMapping

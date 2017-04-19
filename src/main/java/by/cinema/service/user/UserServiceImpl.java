@@ -21,8 +21,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TicketDao ticketDao;
 
+    public static final String DEFAULT_ROLE = "ROLE_REGISTERED_USER";
+
 
     public User register(User user) {
+        user.setRoles(DEFAULT_ROLE);
         return userDao.add(user);
     }
 

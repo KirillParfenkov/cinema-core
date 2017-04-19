@@ -1,0 +1,42 @@
+[
+  {
+    "event": "Captain America: Civil War",
+    "auditorium" : "RED_ROOM",
+    "date": "2017-05-15 20:00"
+  },
+  {
+    "event": "Rogue One: A Star Wars Story",
+    "auditorium" : "RED_ROOM",
+    "date": "2017-05-15 15:00"
+  },
+  {
+    "event": "Finding Dory",
+    "auditorium" : "RED_ROOM",
+    "date": "2017-05-15 10:00"
+  },
+  {
+    "event": "Zootopia",
+    "auditorium" : "BLACK_ROOM",
+    "date": "2017-05-15 20:00"
+  },
+  {
+    "event": "The Jungle Book",
+    "auditorium" : "BLACK_ROOM",
+    "date": "2017-05-15 10:00"
+  },
+  {
+    "event": "The Secret Life of Pets",
+    "auditorium" : "GREEN_ROOM",
+    "date": "2017-05-15 20:00"
+  },
+  {
+    "event": "Batman v Superman: Dawn of Justice",
+    "auditorium" : "YELLOW_ROOM",
+    "date": "2017-05-15 20:00"
+  },
+  {
+    "event": "Fantastic Beasts and Where to Find Them",
+    "auditorium" : "YELLOW_ROOM",
+    "date": "2017-05-15 10:00"
+  }
+]

@@ -61,6 +61,7 @@ public class UserController {
         User newUser = new User(request.getFirst("email"),
                                 request.getFirst("lastName"),
                                 request.getFirst("firstName"));
+        newUser.setPassword(request.getFirst("password"));
 
         User user =  userService.register(newUser);
         return getById(user.getId());
