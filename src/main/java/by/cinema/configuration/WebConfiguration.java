@@ -1,9 +1,6 @@
 package by.cinema.configuration;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.*;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -12,10 +9,10 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 /**
  * Created by Kiryl_Parfiankou on 4/10/2017.
  */
+//@ImportResource(value = "security.xml")
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"by.cinema.controller", "by.cinema.view"})
-@ImportResource(value = "security.xml")
 public class WebConfiguration extends WebMvcConfigurerAdapter {
 
     @Override

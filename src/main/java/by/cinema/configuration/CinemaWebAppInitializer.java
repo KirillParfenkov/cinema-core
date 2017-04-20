@@ -12,7 +12,7 @@ public class CinemaWebAppInitializer extends AbstractAnnotationConfigDispatcherS
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { ApplicationConfiguration.class };
+        return new Class<?>[] { ApplicationConfiguration.class, WebSecurityConfig.class };
     }
 
     @Override

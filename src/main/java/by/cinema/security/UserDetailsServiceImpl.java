@@ -32,7 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return new CinemaUserDetails(user);
         }
 
-        return null;
+        throw new UsernameNotFoundException("User not Found");
     }
 
     public class CinemaUserDetails implements UserDetails {
