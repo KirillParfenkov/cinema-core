@@ -1,3 +1,9 @@
+CREATE TABLE user_accounts (
+    id VARCHAR(255),
+    amount INT,
+    user_id VARCHAR(255)
+);
+
 CREATE TABLE users (
     id VARCHAR(255),
     email VARCHAR(255),

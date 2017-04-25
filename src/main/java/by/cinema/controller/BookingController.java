@@ -54,7 +54,7 @@ public class BookingController {
 
         String[] seatArr = seats.split(",");
         Set<Integer> seatSet = Arrays.stream(seatArr)
-                .map( seat -> Integer.valueOf(seat))
+                .map( seat -> Integer.valueOf(seat) )
                 .collect(Collectors.toSet());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();

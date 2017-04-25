@@ -4,12 +4,14 @@ import by.cinema.bean.*;
 import by.cinema.dao.auditorium.AuditoriumBookingDao;
 import by.cinema.dao.booking.TicketDao;
 import by.cinema.dao.user.UserDao;
+import by.cinema.service.account.UserAccountService;
 import by.cinema.service.discount.DiscountService;
 import by.cinema.service.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,6 +20,7 @@ import java.util.*;
 /**
  * Created by Kiryl_Parfiankou on 10/26/2015.
  */
+@Transactional
 @Service("bookingService")
 public class BookingServiceImpl implements BookingService {
 
@@ -36,6 +39,8 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     @Value("${booking.vip.coefficient}")
     private float vipCoefficient;
+    @Autowired
+    private UserAccountService userAccountService;
 
 
     /**
@@ -50,32 +55,21 @@ public class BookingServiceImpl implements BookingService {
     public Ticket create(Event event, Date date, Set<Integer> seats, User user) {
 
         Ticket ticket = new Ticket(date, event, seats, user);
-        ticket.setPrice(getTicketPrice(event, date, seats, user));
+        ticket.setPrice(getTicketPrice(ticket, user));
         ticket.setDiscount(discountService.getDiscount(user, event, date, ticket.getPrice()));
 
         return ticket;
     }
 
-    public Ticket create(Ticket ticket, long price) {
-        return ticket;
+    private Auditorium getTicketsForEvent(Ticket ticket) {
+        return getAuditorium(ticket.getEvent(), ticket.getDate());
     }
 
-    /**
-     * Calculate price.  For the method no matter the time of event.
-     *
-     * @param event
-     * @param date date of event
-     * @param seats
-     * @param user
-     * @return price for ticket
-     */
-    public long getTicketPrice(Event event, Date date, Set<Integer> seats, User user) {
-
-        List<Ticket> eventTickets = ticketDao.getTicketsByEvent(event.getId());
+    private Auditorium getAuditorium(Event event, Date date) {
 
         List<AuditoriumBooking> eventAuditoriums = auditoriumBookingDao.getByEvent(event.getId());
         if (eventAuditoriums == null) {
-            return 0;
+            return null;
         }
 
         Date dateWithoutTime = null;
@@ -94,9 +88,56 @@ public class BookingServiceImpl implements BookingService {
                 break;
             }
         }
-        if (auditorium == null) {
-            return 0;
+
+        return auditorium;
+    }
+
+    public Ticket create(Ticket ticket, long price) {
+        return ticket;
+    }
+
+    /**
+     * Calculate price.  For the method no matter the time of event.
+     *
+     * @param ticket
+     * @param user
+     * @return price for ticket
+     */
+    @Transactional(readOnly = true)
+    public long getTicketPrice(Ticket ticket, User user) {
+
+        Set<Integer> seats = ticket.getSeats();
+        Event event = ticket.getEvent();
+        Auditorium auditorium = getTicketsForEvent(ticket);
+
+        long price = 0;
+        Set<Integer> vipSeats = auditorium.getVipSeats();
+
+        for(Integer seat: seats) {
+            if (vipSeats.contains(seat)) {
+                price += event.getPrice() * vipCoefficient;
+            } else {
+                price += event.getPrice();
+            }
         }
+
+        return price;
+    }
+
+    /**
+     * Calculate price.  For the method no matter the time of event.
+     *
+     * @param event
+     * @param date date of event
+     * @param seats
+     * @param user
+     * @return price for ticket
+     */
+    @Transactional(readOnly = true)
+    public long getTicketPrice(Event event, Date date, Set<Integer> seats, User user) {
+
+        List<Ticket> eventTickets = ticketDao.getTicketsByEvent(event.getId());
+        Auditorium auditorium = getAuditorium(event, date);
 
         long price = 0;
         Set<Integer> vipSeats = auditorium.getVipSeats();
@@ -131,9 +172,11 @@ public class BookingServiceImpl implements BookingService {
             }
         }
         ticketDao.add(ticket);
+        userAccountService.withdraw(ticket.getUser(), ticket.getPrice());
         return true;
     }
 
+    @Transactional(readOnly = true)
     public List<Ticket> getTicketsForEvent(Event event, Date date) {
         return ticketDao.getList(event, date);
     }
