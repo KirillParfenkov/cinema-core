@@ -41,11 +41,11 @@ public class BookingController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public AuditoriumBooking getBookForm(@RequestParam(required = true) String audBookId) {
+    public ModelAndView getBookForm(@RequestParam(required = true) String audBookId) {
 
         AuditoriumBooking auditoriumBooking
                 = eventService.getAuditoriumBookingById(audBookId);
-        return auditoriumBooking;
+        return new ModelAndView("book-ticket").addObject("audBook", auditoriumBooking);
     }
 
     @RequestMapping(method = RequestMethod.POST)
