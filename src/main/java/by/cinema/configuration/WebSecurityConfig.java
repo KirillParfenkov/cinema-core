@@ -35,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                     .antMatchers("/login*").permitAll()
-                    .antMatchers("/booking/showAllTickets").hasRole("BOOKING_MANAGER")
+                    .antMatchers("/booking/showAllTickets*").permitAll()
                     .antMatchers("/**").hasRole("REGISTERED_USER")
                     .and()
                 .formLogin()
